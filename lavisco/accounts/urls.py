@@ -1,8 +1,11 @@
-from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet
+from . import views
 
 router = DefaultRouter()
-router.register(r'', UserViewSet, basename='user')
+router.register('shipping', views.ShippingViewSet, basename='shipping')
+router.register('sellers', views.SellerViewSet, basename='sellers')
+router.register('customers', views.CustomerViewSet, basename='customers')
+router.register('content', views.StaticContentViewSet, basename='content')
+router.register('', views.UserViewSet, basename='user')
 
 urlpatterns = router.urls

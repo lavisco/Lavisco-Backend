@@ -1,0 +1,8 @@
+{% extends 'accounts/seller-dashboard.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Product</button>
+    </form>
+{% endblock %}

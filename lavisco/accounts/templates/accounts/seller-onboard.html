@@ -1,0 +1,133 @@
+{% load static %}
+<html lang="en">
+<head>
+    <title>Seller Onboarding</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="color: black;background: white">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href="#"><h2 style="color: #FF5A7C">Lavisco</h2></a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 50px">
+        <div class="col-md-12">
+            <strong style="font-size: 25px; color:black">We will take care of delivery and payments for your instagram
+                business.
+            </strong>
+            <ul>
+                <li>You can Accept card payments without a registered business</li>
+                <li>You get to Reach every corner of sri lanka for flat rates</li>
+            </ul>
+            <a href="{% url 'seller-login' %}" class="btn btn-danger" style="background: #FF5A7C">LETS OPEN MY SHOP</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 50px; text-align: center">
+        <div class="col-md-12">
+            <strong style="color:black">Simple, &nbsp; transparent, &nbsp; secure
+            </strong>
+            <hr style="border: 1px grey solid">
+            <div style="text-align: center">
+                <p class="fa fa-check">No additional monthly fees</p> &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="fa fa-check">Automatic deposits</p>
+            </div>
+            <hr style="border: 1px grey solid">
+            <div class="text-center">
+                <div style="background: black;width: 10px;height: 10px;"></div>
+                <p>5 % Transaction fee, Bank Fee</p>
+            </div>
+            <div style="background: black;width: 10px;height: 10px;"></div>
+            <p>per gift wrapping, if applicable</p>
+            <div style="background: black;width: 10px;height: 10px;"></div>
+            <p>Delivery charges</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center mt-2">
+            <strong style="font-size: 20px">Your Own Storefront</strong>
+            <hr style="border: 1px grey solid">
+            <div style="text-align: center">
+                <p class="fa fa-check">Its like having your own website</p> &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="fa fa-check">List anything easily</p>
+            </div>
+            <hr style="border: 1px grey solid">
+            <div class="text-center">
+                <div style="background: black;width: 10px;height: 10px;"></div>
+                <p>Manage Products</p>
+            </div>
+            <div style="background: black;width: 10px;height: 10px;"></div>
+            <p>Manage Customers</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center mt-2">
+            <strong style="font-size: 20px">Help when you need it</strong>
+            <hr style="border: 1px grey solid">
+            <div style="text-align: center">
+                <p class="fa fa-check">We help your customers too</p> &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="fa fa-check">Fastest response</p>
+            </div>
+            <hr style="border: 1px grey solid">
+            <div class="text-center">
+                <div style="background: black;width: 10px;height: 10px;"></div>
+                <p>Get Advise</p>
+            </div>
+            <div style="background: black;width: 10px;height: 10px;"></div>
+            <p>Manage Customers</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center mt-3">
+            <strong style="font-size: 20px">Seller Stories</strong>
+            <hr style="border: 1px grey solid">
+            <div class="text-center">
+                <img src="{% static 'images/profile/user-uploads/user-03.jpg' %}" alt="" style="text-align: left">
+                <blockquote>Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                </blockquote>
+            </div>
+            <div class="text-center" style="display: inline-block">
+                <img src="{% static 'images/profile/user-uploads/user-04.jpg' %}" alt="">
+                <blockquote>Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                </blockquote>
+            </div>
+            <div class="text-center" style="display: inline-block">
+                <img src="{% static 'images/profile/user-uploads/user-13.jpg' %}" alt="">
+                <blockquote>Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                    Quote Quote Quote Quote Quote Quote Quote Quote
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-3 text-center">
+            <strong class="" style="font-size: 20px">F.A.Qs</strong>
+            <hr style="border: 1px grey solid">
+            <div>
+                <p>Q: Some Question</p>
+                <p>A: Some Answer</p>
+            </div>
+            <hr style="border: 1px grey solid; width: 50%">
+            <div>
+                <p>Q: Some Question</p>
+                <p>A: Some Answer</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12 mt-3 text-center">
+            <div>
+                <strong>Ready to start selling?</strong><br>
+                <a href="{% url 'seller-signup' %}" class="btn btn-primary mt-1" style="background: #FF5A7C">Yes!! let’s setup Shop!</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

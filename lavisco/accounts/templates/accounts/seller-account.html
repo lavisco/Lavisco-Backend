@@ -1,0 +1,97 @@
+{% extends 'accounts/seller-dashboard.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+<body>
+{% block content %}
+<section id="basic-vertical-layouts">
+    <div class="row match-height">
+        <div class="col-md-6 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Account Details</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-vertical" method="post">
+                            {% csrf_token %}
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="first-name-icon">First Name</label>
+                                            <div class="position-relative has-icon-left">
+                                                {{ form.first_name }}
+{#                                                <input type="text" id="first-name-icon" class="form-control"#}
+{#                                                       name="fname-icon" placeholder="First Name">#}
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="first-name-icon">Last Name</label>
+                                            <div class="position-relative has-icon-left">
+                                                {{ form.last_name }}
+{#                                                <input type="text" id="first-name-icon" class="form-control"#}
+{#                                                       name="fname-icon" placeholder="First Name">#}
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="email-id-icon">Email</label>
+                                            <div class="position-relative has-icon-left">
+                                                {{ form.email }}
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-mail"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-icon">Password</label>
+                                            <div class="position-relative has-icon-left">
+                                                {{ form.password1 }}
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-lock"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-info-icon">Confirm Password</label>
+                                            <div class="position-relative has-icon-left">
+                                                {{ form.password2 }}
+                                                <div class="form-control-position">
+                                                    <i class="feather icon-lock"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                        <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+</body>
+</html>

@@ -1,7 +1,10 @@
-from django.contrib.auth.hashers import make_password
+from autoslug import AutoSlugField
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
+from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
+
 
 class UserManager(BaseUserManager):
 
@@ -33,32 +36,27 @@ class UserManager(BaseUserManager):
         return user
 
 
-
 # Create your models here.
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractUser):
+    username = None
     email = models.EmailField(max_length=254, unique=True)
-    name = models.CharField(max_length=254, blank=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
-    last_login = models.DateTimeField(null=True, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='email')
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
 
-    def has_perm(self, perm, obj=None):
-        return self.is_superuser
+    class Meta:
+        db_table = 'User'
+        verbose_name = 'User'
+        verbose_name_plural = ' Users'
 
-    def has_module_perms(self, app_label):
-        return self.is_superuser
-
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
-        return self.password
+    def get_full_name(self):
+        return self.first_name + self.last_name
 
     def get_name(self):
         return str(self.email.split("@")[0])
@@ -70,9 +68,21 @@ class CustomerProfile(models.Model):
     shipping_address = models.CharField(max_length=150, null=True, blank=True)
     billing_address = models.CharField(max_length=150, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='user')
+
+    class Meta:
+        db_table = 'Customer'
+        verbose_name = 'Customer'
+        verbose_name_plural = 'Customers'
 
     def __str__(self):
         return "{0}'s Buyer profile".format(self.user)
+
+    def get_user(self):
+        return self.user
 
 
 class SellerProfile(models.Model):
@@ -80,10 +90,19 @@ class SellerProfile(models.Model):
     avatar = models.ImageField(upload_to='media/seller', null=True, blank=True)
     address = models.CharField(max_length=150, null=True, blank=True)
     phone_number = models.IntegerField(null=True, blank=True)
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='user')
+
+    class Meta:
+        db_table = 'Seller'
+        verbose_name = 'Seller'
+        verbose_name_plural = 'Sellers'
 
     def __str__(self):
-        if self.user.name:
-            return str(self.user.name)
+        if self.user.get_full_name():
+            return str(self.user.get_full_name())
         else:
             return str(self.user.get_name())
 
@@ -95,6 +114,67 @@ class CustomerOrder(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     item = models.IntegerField()
     order_price = models.IntegerField()
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='status')
+
+    class Meta:
+        db_table = 'Customer Order'
+        verbose_name = 'Customer Order'
+        verbose_name_plural = 'Customer Orders'
 
     def __str__(self):
-        return self.customer.user.name
+        return self.customer.user.get_full_name()
+
+
+class Shipping(models.Model):
+    first_method = 'Express-2 Day'
+    second_method = 'Express-4 Day'
+    third_method = 'Express-7 Day'
+    shipping_method = (
+        (first_method, 'Express-2 Day'), (second_method, 'Express-4 Day'), (third_method, 'Express-7 Day'))
+
+    customer = models.OneToOneField(CustomerProfile, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, null=True, blank=False)
+    last_name = models.CharField(max_length=50, null=True, blank=False)
+    company = models.CharField(max_length=100, null=True, blank=True)
+    address_one = models.CharField(max_length=100, null=True, blank=False)
+    address_two = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=False)
+    state_or_province = models.CharField(max_length=50, null=True, blank=False)
+    postal_code = models.CharField(max_length=100, null=True, blank=False)
+    country = models.CharField(max_length=50, null=True, blank=False)
+    shipping_method = models.CharField(max_length=20, choices=shipping_method, null=True, blank=False)
+    save_for_future = models.BooleanField(default=False, null=True, blank=True)
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='first_name')
+
+    class Meta:
+        db_table = 'Shipping'
+        verbose_name = 'Shipping'
+        verbose_name_plural = 'Shipping'
+
+    def __str__(self):
+        return self.shipping_method
+
+
+class LaviscoStaticContent(models.Model):
+    page_key = models.CharField(max_length=200)
+    header = models.CharField(max_length=200)
+    sub_header = models.CharField(max_length=200)
+    content = RichTextField()
+    meta_title = models.CharField(max_length=50)
+    meta_desc = models.CharField(max_length=200)
+    meta_keywords = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='header')
+
+    class Meta:
+        db_table = 'Static Content'
+        verbose_name = 'Static Content'
+        verbose_name_plural = 'Static Content'
+
+    def __str__(self):
+        return self.header
